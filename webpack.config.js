@@ -7,6 +7,23 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
+.setOutputPath('public/build/')
+.setPublicPath('/build')
+.addEntry('app', './assets/js/app.js')
+.enableSingleRuntimeChunk()
+.cleanupOutputBeforeBuild()
+.enableSourceMaps(!Encore.isProduction())
+.enableVersioning(Encore.isProduction())
+.enableSassLoader()
+.autoProvidejQuery()
+.enablePostCssLoader((options) => {
+    options.config = {
+        path: 'postcss.config.js'
+    };
+});
+
+module.exports = Encore.getWebpackConfig();
+
   // directory where compiled assets will be stored
   .setOutputPath("public/build/")
   .copyFiles({

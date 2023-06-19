@@ -1,17 +1,38 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Wild Series
+{% block title %}
+	{{ parent() }}- Category
+	{{ category.name }}
 {% endblock %}
 
 {% block body %}
-	<h1>Catégorie:
-		{{category.name}}</h1>
-	<div>
-		{% for program in programs %}
-			<h2>Série :{{ program.title }}</h2>
-			<p>{{ program.synopsis }}</p>
-			{# Lien vers la fiche de la série : #}
-			<a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
-		</div>
-	{% endfor %}
-{% endblock %}
+	{% for program in programs %}
+		<div class="container mt-4">
+			<h1>{{ category.name }} Séries</h1>
+			<div class="mt-4">
+				<button type="button" class="btn disabled">Série n°
+					{{ program.id }}</button>
+				<button type="button" class="btn disabled">Categorie :
+					{{ program.category.name }}</button>
+				<button type="button" class="btn disabled">Pays :
+					{{ program.country }}</button>
+				<button program="button" class="btn disabled">Année :
+					{{ program.year }}</button>
+			</div>
+
+			<div class="card mb-3 d-inline-block mt-4">
+				<h2 class="card-header">{{ program.title }}</h2>
+				<img class="align-self-start m-4 rounded" src="{{program.poster}}" alt="{{ program.title }} poster">
+				<rect width="100%" height="100%" fill="#868e96"></rect>
+				<div class="card-body">
+					<h2>Synopsis</h2>
+					<button type="button" class="btn disabled mt-4">
+						<p class="card-text">{{ program.synopsis }}</p>
+					</button>
+				</div>
+				<div class="card-footer">
+					<a class="btn" href="{{ path("program_show", { id: program.id }) }}">Voir details...
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+	{% endblock %}
